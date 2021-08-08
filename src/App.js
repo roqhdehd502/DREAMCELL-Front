@@ -1,25 +1,25 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+
+import  { Container, Row, Col } from 'react-bootstrap' ;
+
+import Header from './component/route/HeaderComponent'
+import Navigation from './component/route/NavigationComponent'
+import Content from './component/route/ContentComponent';
+//import Aside from './component/route/AsideComponent'
+//import Footer from './component/route/FooterComponent';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <Container fluid="md" mx={1} className="justify-content-md-center">
+        <Header />
+        <Row>
+          <Content />
+        </Row>
+        <br />
+      </Container>
     </div>
   );
 }
 
-export default App;
+export default App; 
