@@ -23,7 +23,6 @@ import {
 } from 'react-bootstrap-icons';
 
 
-
 // 모달
 function MyVerticallyCenteredModal(props) {
   return (
@@ -92,7 +91,7 @@ const CellComponent = () => {
           </Button>
         </Col>
         <Col align="right">
-          <Button variant="info">
+          <Button variant="info" href="/cell/create">
             <Pencil />&nbsp;셀작성
           </Button>
         </Col>

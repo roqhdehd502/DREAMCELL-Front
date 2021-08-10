@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 
 //import ApiService from "../../../ApiService";
 import "../../../App.css";
@@ -41,25 +41,6 @@ const CellCreate = () => {
         </InputGroup>
         <br />
 
-        {/* 중간목표 입력 */}
-        <Row>
-          <Col align="left">
-            <Form.Label>중간목표</Form.Label>
-          </Col>
-          <Col align="right">
-            <Button type="button" variant="dark">
-              <b>+</b>&nbsp;추가
-            </Button>
-          </Col>
-        </Row>
-        <InputGroup className="mb-3">
-          <Col>
-            <FormControl type="text" placeholder="중간목표를 입력해주세요" />
-          </Col>
-        </InputGroup>
-       
-        <br />
-
         {/* 썸네일 입력 */}
         <Form.Group className="position-relative mb-3">
           <Form.Label>썸네일 이미지</Form.Label>
@@ -74,7 +55,7 @@ const CellCreate = () => {
         {/* 목록 되돌아가기 및 셀 작성 */}
         <Row>
           <Col align="left">
-            <Button variant="primary" type="button">
+            <Button variant="primary" type="button" href="/cell">
               <ListUl />&nbsp;목록
             </Button>
           </Col>

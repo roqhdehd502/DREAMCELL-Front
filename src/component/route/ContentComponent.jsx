@@ -39,6 +39,7 @@ import NoticeNewsDetail from "./news/NoticeNewsDetail";
 // ===Cell===
 import CellComponent from "./cell/CellComponent";
 import CellCreate from "./cell/CellCreate";
+import CellDetail from "./cell/CellDetail";
 
 
 const ContentComponent = () => {
@@ -90,8 +91,8 @@ const ContentComponent = () => {
           <Route exact path="/cell" component={CellComponent} />{/* 이후 path를 /user_id/cell로 수정할 것 */}
           {/* 셀작성 */}
           <Route exact path="/cell/create" component={CellCreate} />
-          {/* 셀수정 */}
-          {/* 셀디테일 */}
+          {/* 셀디테일 및 수정 */}
+          <Route exact path="/cell/test" component={CellDetail} /> {/* path /cell/{cell_id} 수정할것! */}
         </Switch>
       </BrowserRouter>
     </div>
