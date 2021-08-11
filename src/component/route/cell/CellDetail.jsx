@@ -14,6 +14,7 @@ import {
   ProgressBar,
   ListGroup,
   CloseButton,
+  Label,
 } from 'react-bootstrap';
 import {
   Clock,
@@ -25,6 +26,7 @@ import {
   CheckLg,
   XLg,
   FlagFill,
+  PlusLg,
 } from 'react-bootstrap-icons';
 
 
@@ -118,7 +120,7 @@ const CellDetail = () => {
       </Row>
       <hr />
 
-      {/* 진행도 */}
+      {/* 진행도 및 소목표 추가, 확인 */}
       <Row>
         <Col>
           <ProgressBar animated now={33} label={`${33}%`} />
@@ -126,20 +128,30 @@ const CellDetail = () => {
       </Row>
       <br />
 
-      {/* 중간목표 내용 */}
+      <Row>
+        <Col>
+          <Form>
+            <InputGroup>
+              <FormControl type="text" placeholder="소목표를 입력해주세요" />
+              <Button type="submit" variant="info"><PlusLg />&nbsp;추가</Button>
+            </InputGroup>
+          </Form>
+        </Col>
+      </Row>
+
       <Row>
         <Col>
           <ListGroup as="ul">
-            <ListGroup.Item as="li" active>
-              중목표 샘플1
+            <ListGroup.Item as="li">
+              <CheckLg />&nbsp;소목표 샘플1
             </ListGroup.Item>
             <ListGroup.Item as="li">
-              중목표 샘플2&nbsp;
+              소목표 샘플2&nbsp;
               <Button variant="info" size="sm"><CheckLg />&nbsp;달성</Button>&nbsp;
               <Button variant="danger" size="sm"><XLg />&nbsp;취소</Button>
             </ListGroup.Item>
             <ListGroup.Item as="li">
-              중목표 샘플3&nbsp;
+              소목표 샘플3&nbsp;
               <Button variant="info" size="sm"><CheckLg />&nbsp;달성</Button>&nbsp;
               <Button variant="danger" size="sm"><XLg />&nbsp;취소</Button>
             </ListGroup.Item>
