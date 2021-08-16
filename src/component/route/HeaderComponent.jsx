@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import AuthenticationService from '../../AuthenticationService.js'
 
 import {
   Container,
@@ -16,15 +17,15 @@ import {
 import "../../App.css";
 
 
-const login = () => {
-  window.location.href = "/login"
-}
-
 const HeaderComponent = () => {
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+
+  const isUserLoggedIn = AuthenticationService.isUserLoggedIn();
+  console.log("===Headeromponent===");
+  console.log(isUserLoggedIn);
 
   return (
     <div>
@@ -68,12 +69,11 @@ const HeaderComponent = () => {
             </Offcanvas>
             &nbsp;
             <Navbar.Text>
-              <Button size="sm" variant="info" type="button" onClick={login}>
-                <span class="material-icons">
-                  login
-                </span><br />
-                로그인
-              </Button>
+              {!isUserLoggedIn && <Button size="sm" variant="info" type="button" href="/login"><span class="material-icons">login</span><br />로그인</Button>}
+              {/* <Button size="sm" variant="info" type="button" href="/login">
+                <span class="material-icons">login</span><br />로그인
+              </Button> */}
+              {isUserLoggedIn && <Button size="sm" variant="info" type="button" href="/logout" onClick={AuthenticationService.logout}><span class="material-icons">logout</span><br />로그아웃</Button>}
             </Navbar.Text>
           </Navbar.Collapse>
         </Container>

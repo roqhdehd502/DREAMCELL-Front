@@ -1,7 +1,7 @@
 import React, { Component, useState, useEffect } from 'react';
 
 //import ApiService from "../../../ApiService";
-import AuthenticationService from '../../../AuthenticationService.js'
+import AuthenticationService from '../../../AuthenticationService'
 
 import "../../../App.css";
 
@@ -36,7 +36,7 @@ class LoginMbrComponent extends Component {
   }
 
   // username, response.data.token 을 사용해 사용자 확인
-  // 로그인 성공하면 welcomepage로 이동
+  // 로그인 성공하면 메인페이지로 이동
   loginClicked() {
     AuthenticationService
       .executeJwtAuthenticationService(this.state.username, this.state.password)
@@ -46,7 +46,7 @@ class LoginMbrComponent extends Component {
           token: response.data.token
         });
         AuthenticationService.registerSuccessfulLoginForJwt(this.state.username, this.state.token)
-        this.props.history.push(`/`)
+        this.props.history.push(`/main`)
         //this.props.history.push(`/welcome/${this.state.username}`)
       }).catch(() => {
         this.setState({ showSuccessMessage: false })

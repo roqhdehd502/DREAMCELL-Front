@@ -2,6 +2,8 @@ import React from 'react';
 
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
+
+
 // ===Common===
 import MainCommonComponent from "./common/MainCommonComponent";
 
@@ -10,6 +12,9 @@ import MainCommonComponent from "./common/MainCommonComponent";
 // import AddUserComponent from "./mbr/AddUserComponent";
 // import EditUserComponent from "./mbr/EditUserComponent";
 import LoginMbrComponent from "./mbr/LoginMbrComponent";
+import LogoutComponent from "./mbr/LogoutComponent";
+import AuthenticatedRoute from './mbr/AuthenticatedRoute'
+import ErrorComponent from './mbr/ErrorComponent'
 import RegiMbrComponent from "./mbr/RegiMbrComponent";
 
 // ===Board===
@@ -50,12 +55,17 @@ const ContentComponent = () => {
           {/* ===Common=== */}
           {/* 메인화면 */}
           <Route exact path="/" component={MainCommonComponent} />
+          <Route exact path="/main" component={MainCommonComponent} />
           
           {/* ===Mbr=== */}
           {/* 로그인 */}
           <Route exact path="/login" component={LoginMbrComponent} />
+          {/* 로그아웃 */}
+          <AuthenticatedRoute path="/logout" component={LogoutComponent}/>
           {/* 회원가입 */}
           <Route exact path="/regist" component={RegiMbrComponent} />
+          {/* 회원인증오류 */}
+          {/* <Route component={ErrorComponent}/> */}
           
           {/* ===Board=== */}
           {/* 커뮤니티게시판 */}
