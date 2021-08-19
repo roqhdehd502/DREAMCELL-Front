@@ -46,8 +46,10 @@ class LoginMbrComponent extends Component {
           token: response.data.token
         });
         AuthenticationService.registerSuccessfulLoginForJwt(this.state.username, this.state.token)
-        this.props.history.push(`/main`)
-        //this.props.history.push(`/welcome/${this.state.username}`)
+        //this.props.history.push(`/main`);
+        //window.location.replace(`/main`);
+        //this.props.history.push(`/welcome/${this.state.username}`);
+        window.location.replace(`/welcome/${this.state.username}`);
       }).catch(() => {
         this.setState({ showSuccessMessage: false })
         this.setState({ hasLoginFailed: true })

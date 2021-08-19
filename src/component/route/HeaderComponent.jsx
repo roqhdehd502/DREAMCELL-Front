@@ -70,9 +70,6 @@ const HeaderComponent = () => {
             &nbsp;
             <Navbar.Text>
               {!isUserLoggedIn && <Button size="sm" variant="info" type="button" href="/login"><span class="material-icons">login</span><br />로그인</Button>}
-              {/* <Button size="sm" variant="info" type="button" href="/login">
-                <span class="material-icons">login</span><br />로그인
-              </Button> */}
               {isUserLoggedIn && <Button size="sm" variant="info" type="button" href="/logout" onClick={AuthenticationService.logout}><span class="material-icons">logout</span><br />로그아웃</Button>}
             </Navbar.Text>
           </Navbar.Collapse>
@@ -103,9 +100,7 @@ const HeaderComponent = () => {
           </Dropdown.Menu>
         </Dropdown>
         &nbsp;
-        <Button variant="light" href="/cell">
-          CELL
-        </Button>
+        {isUserLoggedIn && <Button variant="light" href="/cell">CELL</Button>}
       </Nav>
       <br /><br />
     </div>

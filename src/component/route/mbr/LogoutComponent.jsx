@@ -9,7 +9,6 @@ class LogoutComponent extends Component {
                 <div className="container">
                     Thank You for Using Our Application.
                 </div>
-                <Redirect to="/main"/>
             </>
         )
     }

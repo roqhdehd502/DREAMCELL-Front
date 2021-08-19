@@ -12,6 +12,7 @@ import MainCommonComponent from "./common/MainCommonComponent";
 // import AddUserComponent from "./mbr/AddUserComponent";
 // import EditUserComponent from "./mbr/EditUserComponent";
 import LoginMbrComponent from "./mbr/LoginMbrComponent";
+import WelcomeComponent from "./mbr/WelcomeComponent";
 import LogoutComponent from "./mbr/LogoutComponent";
 import AuthenticatedRoute from './mbr/AuthenticatedRoute'
 import ErrorComponent from './mbr/ErrorComponent'
@@ -60,6 +61,7 @@ const ContentComponent = () => {
           {/* ===Mbr=== */}
           {/* 로그인 */}
           <Route exact path="/login" component={LoginMbrComponent} />
+          <AuthenticatedRoute path="/welcome/:name" component={WelcomeComponent}/>
           {/* 로그아웃 */}
           <AuthenticatedRoute path="/logout" component={LogoutComponent}/>
           {/* 회원가입 */}
