@@ -8,3 +8,8 @@ hr {
 br {
   margin: 30px 0px 30px 0px;
 }
+
+/* body태크 폰트크기 */
+body {
+  font-size: 15px !important;
+}

@@ -49,12 +49,14 @@ class AuthenticationService {
             });
     }
 
+    // 로그아웃
     logout() {
         //sessionStorage.removeItem('authenticatedUser');
         localStorage.removeItem("authenticatedUser");
         localStorage.removeItem("token");
     }
 
+    // 로그인 여부 확인
     isUserLoggedIn() {
         const token = localStorage.getItem('token');
         console.log("===UserloggedInCheck===");
@@ -67,11 +69,17 @@ class AuthenticationService {
         return false;
     }
 
+    // 로그인한 ID 가져오기
     getLoggedInUserName() {
         //let user = sessionStorage.getItem('authenticatedUser')
         let user = localStorage.getItem('authenticatedUser');
         if(user===null) return '';
         return user;
+    }
+
+    // 가입시 ID 중복체크
+    idCheck(){
+      return axios.put(USER_API_BASE_URL + '/regist/idCheck')
     }
 }
 
