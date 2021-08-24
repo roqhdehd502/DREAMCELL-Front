@@ -78,8 +78,13 @@ class AuthenticationService {
     }
 
     // 가입시 ID 중복체크
-    idCheck(){
-      return axios.put(USER_API_BASE_URL + '/regist/idCheck')
+    // idCheck(id) {
+    //   return axios.get(USER_API_BASE_URL + '/regist/idCheck' + id)
+    // }
+    
+    // 회원 추가하기
+    addMbr(mbr){
+      return axios.post(USER_API_BASE_URL + "/regist", mbr);
     }
 }
 
