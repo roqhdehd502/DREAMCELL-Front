@@ -78,12 +78,17 @@ class AuthenticationService {
     }
 
     // 가입시 ID 중복체크
-    // idCheck(id) {
-    //   return axios.get(USER_API_BASE_URL + '/regist/idCheck' + id)
-    // }
+    isExistId(mbr_id) {
+      return axios.get(USER_API_BASE_URL + '/regist/isExistId/' + mbr_id)
+    }
+
+    // 가입시 닉네임 중복체크
+    isExistNick(mbr_nickname) {
+      return axios.get(USER_API_BASE_URL + '/regist/isExistNick/' + mbr_nickname)
+    }
     
     // 회원 추가하기
-    addMbr(mbr){
+    addMbr(mbr) {
       return axios.post(USER_API_BASE_URL + "/regist", mbr);
     }
 }
