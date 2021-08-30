@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
-import "../../../App.css";
 import AuthenticationService from '../../../AuthenticationService'
+import "../../../App.css";
 
 import {
   Search,
@@ -105,6 +105,7 @@ class RegiMbrComponent extends Component {
       .catch(err => {
         console.log('isExistNick() 에러', err);
         alert('인증에러로 인해 페이지를 새로고침 합니다');
+        this.props.history.push('/regist');
       });
   };
 
