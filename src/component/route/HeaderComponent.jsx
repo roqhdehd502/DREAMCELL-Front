@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import AuthenticationService from '../../AuthenticationService.js'
 
 import {
@@ -24,8 +24,10 @@ const HeaderComponent = () => {
   const handleShow = () => setShow(true);
 
   const isUserLoggedIn = AuthenticationService.isUserLoggedIn();
+  const getLoggedInUserName = AuthenticationService.getLoggedInUserName();
   console.log("===Headeromponent===");
   console.log(isUserLoggedIn);
+  if (isUserLoggedIn != "") { console.log(getLoggedInUserName) }
 
   return (
     <div>
@@ -70,6 +72,7 @@ const HeaderComponent = () => {
             &nbsp;
             <Navbar.Text>
               {!isUserLoggedIn && <Button size="sm" variant="info" type="button" href="/login"><span class="material-icons">login</span><br />로그인</Button>}
+              {isUserLoggedIn && getLoggedInUserName}
               {isUserLoggedIn && <Button size="sm" variant="info" type="button" href="/logout" onClick={AuthenticationService.logout}><span class="material-icons">logout</span><br />로그아웃</Button>}
             </Navbar.Text>
           </Navbar.Collapse>
