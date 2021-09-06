@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, File, ChangeEvent, HTMLInputElement } from 'react';
 
 import AuthenticationService from '../../../AuthenticationService'
 import CellService from '../../../CellService'
@@ -25,10 +25,7 @@ class CellCreate extends Component {
       cell_name: '',
       mbr_id: '',
       cell_type_number: '',
-      cell_thumbnail: '',
-
-      imgBase64: [], // 파일 base64 (미리보기)
-      imgFile: null, // 파일
+      uploadfiles: null,
     }
   }
 
@@ -38,68 +35,41 @@ class CellCreate extends Component {
     })
   }
 
-  /* 파일을 등록하는 함수 */
-  //const [imgBase64, setImgBase64] = useState([]); 
-  //const [imgFile, setImgFile] = useState(null);		
-  handleChangeFile = (e) => {
-    console.log(e.target.files)
-    this.imgFile(e.target.files);
-    //fd.append("file", event.target.files)
-    this.imgBase64([]);
-    for (var i = 0; i < e.target.files.length; i++) {
-      if (e.target.files[i]) {
-        let reader = new FileReader();
-        reader.readAsDataURL(e.target.files[i]); // 1. 파일을 읽어 버퍼에 저장합니다.
-        // 파일 상태 업데이트
-        // reader.onloadend = () => {
-        //   // 2. 읽기가 완료되면 아래코드가 실행됩니다.
-        //   const base64 = reader.result;
-        //   console.log(base64)
-        //   if (base64) {
-        //     //  images.push(base64.toString())
-        //     var base64Sub = base64.toString()
-
-        //     this.imgBase64(imgBase64 => [...imgBase64, base64Sub]);
-        //     //  setImgBase64(newObj);
-        //     // 파일 base64 상태 업데이트
-        //     //  console.log(images)
-        //   }
-        // }
-      }
-    }
+  fileChange = (e) => {
+    this.setState({ 
+      file: e.target.files[0] 
+    })
   }
-
 
   createCell = (e) => {
     e.preventDefault();
 
-    // 해당 코드 오류부분 수정할것...
-    const fd = new FormData();
-    Object.values(imgFile).forEach((file) => fd.append("file", file));
-    fd.append("comment", comment);
+    // Content type 'multipart/form-data;boundary=----WebKitFormBoundaryeDFHue0GYkNitwVx;charset=UTF-8' not supported]
+    // 해당 에러 해결하기
+    const cell = new FormData();
 
-    let cell = {
-      cell_name: this.state.cell_name,
-      mbr_id: AuthenticationService.getLoggedInUserName(),
-      cell_type_number: this.state.cell_type_number,
-      cell_thumbnail: this.state.cell_thumbnail,
-    }
-    console.log(cell);
-
-    if (cell.cell_name == "") {
-      alert("목표를 입력하세요!");
+    if (this.state.cell_name === null) {
+      alert("최종목표를 입력해주세요!");
+    } else if (e.target.files === null) {  
+      alert("썸네일을 등록해주세요!");
     } else {
-      CellService.createCell(cell)
-        .then(res => {
-          console.log(res + 'createCell() 성공');
-          this.props.history.push('/cell');
-        })
-        .catch(err => {
-          console.log('createCell() 에러', err);
-          alert('작성오류로 인해 목록 페이지로 이동합니다')
-          this.props.history.push('/cell');
-        });
+      cell.append("cell_name", this.state.cell_name);
+      cell.append("mbr_id", AuthenticationService.getLoggedInUserName());
+      cell.append("cell_type_number", this.state.cell_type_number);
+      cell.append("uploadfiles", this.state.uploadfiles);
+      console.log(cell.data);
     }
+
+    CellService.createCell(cell)
+      .then(res => {
+        console.log(res + 'createCell() 성공');
+        this.props.history.push('/cell');
+      })
+      .catch(err => {
+        console.log('createCell() 에러', err);
+        alert('작성오류로 인해 새로고침 합니다')
+        this.props.history.push('/cell/create');
+      });
   }
 
   render() {
@@ -128,7 +98,7 @@ class CellCreate extends Component {
           {/* 썸네일 입력 */}
           <Form.Group className="position-relative mb-3">
             <Form.Label>썸네일 이미지</Form.Label>
-            <Form.Control type="file" name="cell_thumbnail" value={this.state.cell_thumbnail} accept=".jpg, .png" onChange={this.handleChangeFiles} />
+            <Form.Control type="file" name="uploadfiles" value={this.state.uploadfiles} accept=".jpg, .png" onChange={this.fileChange} />
             <Form.Control.Feedback type="invalid" tooltip></Form.Control.Feedback>
           </Form.Group>
           <div className="form-text">
