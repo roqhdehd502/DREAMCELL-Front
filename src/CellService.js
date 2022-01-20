@@ -9,8 +9,10 @@ class CellService {
   createCell(cell) {
     // 이미지 업로드를 위해서 content-type을 설정한다
     const config = {
-      header: {'content-type': 'multipart/form-data'}
-    }
+      headers: {
+        "content-type": "multipart/form-data"
+      }
+    };
     console.log(config);
 
     return axios.post(USER_API_BASE_URL + "/cell/create", cell, config);

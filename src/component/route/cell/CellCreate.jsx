@@ -36,29 +36,48 @@ class CellCreate extends Component {
   }
 
   fileChange = (e) => {
-    this.setState({ 
-      file: e.target.files[0] 
+    this.setState({
+      file: e.target.files[0]
     })
   }
 
   createCell = (e) => {
     e.preventDefault();
 
-    // Content type 'multipart/form-data;boundary=----WebKitFormBoundaryeDFHue0GYkNitwVx;charset=UTF-8' not supported]
-    // 해당 에러 해결하기
     const cell = new FormData();
 
     if (this.state.cell_name === null) {
       alert("최종목표를 입력해주세요!");
-    } else if (e.target.files === null) {  
-      alert("썸네일을 등록해주세요!");
+      return false;
     } else {
       cell.append("cell_name", this.state.cell_name);
-      cell.append("mbr_id", AuthenticationService.getLoggedInUserName());
-      cell.append("cell_type_number", this.state.cell_type_number);
-      cell.append("uploadfiles", this.state.uploadfiles);
-      console.log(cell.data);
     }
+
+    if (AuthenticationService.getLoggedInUserName() === null) {
+      alert("로그인 페이지로 이동합니다");
+      return false;
+    } else {
+      cell.append("mbr_id", AuthenticationService.getLoggedInUserName());
+    }
+
+    if (this.state.cell_type_number === null) {
+      alert("카테고리를 선택해주세요!");
+      return false;
+    } else {
+      cell.append("cell_type_number", this.state.cell_type_number);
+    }
+
+    if (e.target.files === null) {
+      alert("썸네일을 등록해주세요!");
+      return false;
+    } else {
+      cell.append("uploadfiles", this.state.uploadfiles);
+    }
+
+    console.log("cell_name: " + this.state.cell_name);
+    console.log("mbr_id: " + AuthenticationService.getLoggedInUserName());
+    console.log("cell_type_number: " + this.state.cell_type_number);
+    console.log("uploadfiles: " + this.state.uploadfiles);
 
     CellService.createCell(cell)
       .then(res => {
@@ -78,7 +97,7 @@ class CellCreate extends Component {
         <h3>DREAM CELL</h3>
         <br />
 
-        <Form>
+        <Form enctype="multipart/form-data">
           {/* 카테고리 및 최종목표 입력 */}
           <Form.Label>카테고리 및 최종목표</Form.Label>
           <InputGroup className="mb-3">
@@ -96,11 +115,17 @@ class CellCreate extends Component {
           <br />
 
           {/* 썸네일 입력 */}
+          <div className="mb-3">
+            <label className="form-label">썸네일 이미지</label>
+            <input type="file" className="form-control" name="uploadfiles" value={this.state.uploadfiles} accept=".jpg, .png" onChange={this.fileChange} />
+          </div>
+          {/* 
           <Form.Group className="position-relative mb-3">
             <Form.Label>썸네일 이미지</Form.Label>
             <Form.Control type="file" name="uploadfiles" value={this.state.uploadfiles} accept=".jpg, .png" onChange={this.fileChange} />
             <Form.Control.Feedback type="invalid" tooltip></Form.Control.Feedback>
           </Form.Group>
+           */}
           <div className="form-text">
             JPG 및 PNG 파일만 지원하고 가로가 더 긴 사진을 추천합니다.
           </div>
